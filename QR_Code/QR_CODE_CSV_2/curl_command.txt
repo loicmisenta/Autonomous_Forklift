@@ -1,0 +1,5 @@
+192.168.42.35
+
+curl -X POST http://192.168.42.35/start-scan
+
+Invoke-WebRequest -Uri "http://192.168.42.35/start-scan" -Method POST

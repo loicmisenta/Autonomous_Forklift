@@ -1,0 +1,5 @@
+id,row,shelf,type,description,action
+1,1,4,"""PAPER""","""Recycled paper from EPFL""","""stay"""
+2,2,3,"""ROCK""","""Rock from Russia""","""move"""
+3,3,2,"""ROCK""","""Rock from Everest""","""stay"""
+4,2,2,"""SAND""","""Sand imported from Sahara""","""move"""

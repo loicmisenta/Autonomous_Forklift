@@ -1,0 +1,33 @@
+{ "Storage_Cabinet": "...", "Floor": "...", "Type": "...", "Description: "..."}
+
+
+Storage Canbinet : 	Int
+Floor :			Int
+Type :			String
+Description : 		String
+
+
+
+Example of 20 JSON texts for a box
+
+
+{"Storage Cabinet": 1, "Floor": 0, "Type": "Sand", "Description": "Fine-grained material"}
+{"Storage Cabinet": 2, "Floor": 3, "Type": "Rocks", "Description": "Hard mineral substance"}
+{"Storage Cabinet": 3, "Floor": 2, "Type": "Papers", "Description": "Thin sheets of material"}
+{"Storage Cabinet": 4, "Floor": 1, "Type": "Dirt", "Description": "Soil or earth"}
+{"Storage Cabinet": 5, "Floor": 2, "Type": "Sand", "Description": "Loose material consisting of small rock fragments"}
+{"Storage Cabinet": 6, "Floor": 4, "Type": "Rocks", "Description": "Naturally occurring solid aggregate of minerals"}
+{"Storage Cabinet": 7, "Floor": 3, "Type": "Papers", "Description": "Thin material made from plant fibers"}
+{"Storage Cabinet": 8, "Floor": 0, "Type": "Dirt", "Description": "Soil, mud, or other types of earthy material"}
+{"Storage Cabinet": 9, "Floor": 2, "Type": "Sand", "Description": "Coarse-grained material"}
+{"Storage Cabinet": 10, "Floor": 1, "Type": "Rocks", "Description": "Solid, naturally occurring material with a crystalline structure"}
+{"Storage Cabinet": 11, "Floor": 4, "Type": "Papers", "Description": "Material made from wood pulp or other fibrous materials"}
+{"Storage Cabinet": 12, "Floor": 3, "Type": "Dirt", "Description": "Soil, mud, or other types of earthy material"}
+{"Storage Cabinet": 13, "Floor": 2, "Type": "Sand", "Description": "Fine-grained material used in construction or for landscaping"}
+{"Storage Cabinet": 14, "Floor": 1, "Type": "Rocks", "Description": "Naturally occurring material with a specific chemical composition and crystal structure"}
+{"Storage Cabinet": 15, "Floor": 0, "Type": "Papers", "Description": "Thin sheets made from plant or synthetic fibers"}
+{"Storage Cabinet": 16, "Floor": 3, "Type": "Dirt", "Description": "Mixture of sand, silt, and clay, often used for gardening or agriculture"}
+{"Storage Cabinet": 17, "Floor": 4, "Type": "Sand", "Description": "Coarse-grained material used in construction or for landscaping"}
+{"Storage Cabinet": 18, "Floor": 1, "Type": "Rocks", "Description": "Solid, naturally occurring material composed of one or more minerals"}
+{"Storage Cabinet": 19, "Floor": 2, "Type": "Papers", "Description": "Material used for writing, printing, or packaging"}
+{"Storage Cabinet": 20, "Floor": 0, "Type": "Dirt", "Description": "Soil, mud, or other types of earthy material"}

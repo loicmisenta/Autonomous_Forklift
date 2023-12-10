@@ -1,0 +1,1 @@
+pandoc -s --css=report.css report.md -o report.html

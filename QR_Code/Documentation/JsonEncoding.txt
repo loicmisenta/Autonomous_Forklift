@@ -1,0 +1,5 @@
+{"Storage Cabinet": Int, "Floor": Int, "Type": String, "Description": String}
+
+will be encode as
+
+Int:Int:String:String

@@ -1,0 +1,4 @@
+ESP32 -> Client -> read QR code -> BOX_ID : 98837 -> Send to PC (HTTP) 
+
+-> PC (Server) Received -> Search in the .csv all the information 
+-> Send (has a client) to ESP8266 (Server) -> the ESP8266 move the forklift

@@ -1,0 +1,312 @@
+:root {
+  --mapGapWidth : 2px;
+  --mapBg : #fff;
+  --mapNoOfRows: 4;
+  --mapNoOfCol: 2;
+  --mapElemBg: #ccc;
+  --mapElemHover: #ffa500;
+  --mapElemAct: #ff6000;
+  --pointerColor: #ff0000;
+  --pointerLeft: 0px;
+  --pointerTop: 0px;
+  --pointerSel: #D2042D; /*Ruby*/
+  --pointerActive: #0080FE; /*Azure*/
+  --pointerShadow: #e3242b; /* #73C2FB Maya Blue, #e3242b Rose*/
+  --controlBg: #ADD8E6; /* Light blue*/
+  --turnLeftColor: white;
+  --turnRightColor: white;
+}
+
+body {
+  justify-content: center;
+  margin: 40px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+p, ul, ol, label{
+  font-family: Helvetica, Arial;   text-align: center;
+}
+
+#main {
+  width: 100%;
+  height: 80%;
+  display: grid;
+  /*set sizes of columns and rows*/
+  grid-template-columns: 1fr 500px;
+  grid-template rows: 1 1fr; 
+  /*set column and row gaps*/
+  grid-gap: 15px;
+  /*set color of gaps*/
+  background-color: white; 
+}
+
+#control {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: center;
+}
+
+#tg {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: absolute;
+  top: 40%;
+  left: 20%;
+}
+
+#forward {
+  position: absolute;
+  top: 15%;
+  left: 46%;
+}
+
+#backward {
+  position: absolute;
+  top: 60%;
+  left: 46%;
+}
+
+#right {
+  padding-left: 20px;
+}
+
+#left {
+  padding-right: 20px;
+}
+
+#turnLeft {
+  padding-right: 15px;
+}
+
+#turnRight {
+  padding-left : 20px;
+}
+
+#up {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+}
+
+#down {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+}
+
+#axe {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+#stop-pickup {
+  margin-top: 1em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#stop {
+  background: #D2042D;
+}
+
+#pickup {
+  background: #FFC000;
+}
+
+.title1{
+  width: 100%;
+  font-size: 1em;
+  font-weight: 600;
+  padding-bottom: 1em;
+}
+
+.form {
+  padding: 15px;
+}
+
+.controls{
+  position: relative;
+  height: 120px;
+  background: var(--controlBg);
+  padding : 1em;
+  margin-right: 10px;
+  border-radius: 1em;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 10px 10px 0;
+  display: inline-block;
+  padding: 10px;
+  margin: 0;
+}
+
+.arrow:hover {
+  border-color: var(--mapElemHover);
+  cursor: pointer;
+}
+
+.turnLeft {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}
+
+.turnLeft:before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 80%;
+  height: 0;
+  width: 0;
+  border-left: 15px solid var(--turnLeftColor);
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.turnRight {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+
+.turnRight:before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  height: 0;
+  width: 0;
+  border-left: 15px solid var(--turnRightColor);
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.button {
+  color: white !important;
+  border-radius: 1em;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 5px;
+}
+
+.button:hover {
+  background: #50C878 !important;
+  cursor: pointer;
+}
+
+.button:active {
+   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.3);
+}
+
+.map-parent {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: auto; /*Center element*/
+    display: grid;
+  /*set sizes of columns and rows*/
+    grid-template-columns: repeat(var(--mapNoOfCol), 1fr);
+    grid-template rows: repeat(var(--mapNoOfRows), 1fr); 
+  /*set column and row gaps*/
+    grid-gap: var(--mapGapWidth);
+  /*set color of gaps*/
+    background-color: var(--mapBg); 
+  /*let the content fill the whole cell*/
+    justify-content: center;
+}
+
+.map-cell {
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 0;
+  cursor: pointer;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 1em;
+  font-size: 2em;
+  font-weight: 600;
+  font-family: Helvetica, Arial;
+  text-align: center;
+  color: white;
+  background: var(--mapElemBg);
+}
+
+.map-cell:hover{
+  background: var(--mapElemHover);
+}
+
+.pulse {
+  position: absolute;
+  top: var(--pointerTop);
+  left: var(--pointerLeft);
+  z-index: 100;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 0 var(--pointerShadow);
+}
+.sel{
+  background: var(--pointerSel);
+}
+.act{
+  background: var(--pointerActive);
+}
+.none{
+  position: absolute;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 var(--pointerShadowl);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px var(--pointerShadowl);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 var(--pointerShadowl);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 var(--pointerShadow);
+    box-shadow: 0 0 0 0 var(--pointerShadowl);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px var(--pointerShadow);
+      box-shadow: 0 0 0 10px var(--pointerShadow);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 var(--pointerShadow);
+      box-shadow: 0 0 0 0 var(--pointerShadow);
+  }
+}

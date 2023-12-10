@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Layout</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <div class="title1">
+    <p>Autonomous Forklift Map Interface</p>
+  </div>
+  
+  <div id='main'>
+    <!-- Begining of left -->
+    <div id='leftd'>
+      <!-- Begining of map -->
+      <a id='send-coords'>
+        <div class="map-parent" id="parent" onClick="position_clicked()">
+          <!--First row-->
+          <div class='map-cell' id='p 1'>1</div>
+          <div class='map-cell' id='p 2'>2</div>
+          <div class='map-cell' id='p 3'>3</div>
+          <div class='map-cell' id='p 4'>4</div>
+          <div class='map-cell' id='p 5'>5</div>
+          <div class='map-cell' id='p 6'>6</div>
+          <div class='map-cell' id='p 7'>7</div>
+          <div class='map-cell' id='p '>8</div>
+          <!-- Pointer -->
+          <span class="" id="pointer"></span>
+        </div>
+      </a>
+      <!-- End of map -->
+      
+    </div>
+    <!-- End of left -->
+    <!-- Begining of right -->
+    <div id='rightd'>
+      
+      <form class="form" >
+        <label for="ip-txt">IP:</label>
+        <input id="ip-txt" type="text" name="ip" value="172.20.10.3">
+      </form>
+      
+      <!-- controls -->
+      <div id='control'>
+        
+        <div class='controls'>
+          <div>
+            <div id='forward' onClick='button_clicked(this.id)'><span class='arrow up'/></div>
+            <div id='tg'>
+              <div id='turnLeft' onClick='button_clicked(this.id)' onmouseover='mouseOverLeft()' onmouseout='mouseOutLeft()'><span class='arrow turnLeft'/></div>
+              <div id='left' onClick='button_clicked(this.id)'><span class='arrow left'/></div>
+              <div id='right' onClick='button_clicked(this.id)'><span class='arrow right'/></div>
+              <div id='turnRight' onClick='button_clicked(this.id)' onmouseover='mouseOverRight()' onmouseout='mouseOutRight()'><span class='arrow turnRight' onmouseover='arrowColor()'/></div>
+            </div>
+            <div id='backward' onClick='button_clicked(this.id)'><span class='arrow down'/></div>
+          </div>
+        </div>
+        
+        <div class='controls' id='axe'>
+          <div>
+            <div id='up' onClick='button_clicked(this.id)'> <span class='arrow up' /></div>
+            <div id='down' onClick='button_clicked(this.id)'><span class='arrow down'/></div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- End of controls -->
+      
+      <!-- Pickup and Stop-->
+        <div id='stop-pickup'>
+          <div class='button' id='stop' onClick='button_clicked(this.id)'><p>Stop</p></div>
+          <div class='button' id='pickup' onClick='button_clicked(this.id)'><p>Pickup</p></div>
+        </div>
+      
+    </div>
+    <!-- End of right -->
+  </div>
+</body>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

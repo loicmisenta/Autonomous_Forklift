@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamepad Forklift Controller</title>
+</head>
+<body>
+<h1>Gamepad Forklift Controller</h1>
+<form>Server IP: <input id="ip-txt" type="text" name="ip" value="172.20.10.3"> </form>
+<h2>Gamepad state</h2>
+<p id="gamepad_connected">No gamepad connected :(</p>
+
+<h2>Controls</h2>
+<p id="controls">
+    Press R2 to move forward <br>
+    Press L2 to move backward <br>
+    Press R1 to move to the right <br>
+    Press L1 to move to the left <br>
+    Press Square to turn counter-clockwise <br>
+    Press Circle to turn clockwise <br>
+    Press Triangle to move the forks up <br>
+    Press Cross to move the forks down 
+</p>
+
+<pre id="output"></pre>
+
+<script>
+    // Define all button indices for ease of use
+    const CROSS = 0;
+    const CIRCLE = 1;
+    const SQUARE = 2;
+    const TRIANGLE = 3;
+    const L1 = 4;
+    const R1 = 5;
+    const L2 = 6;
+    const R2 = 7;
+    const SHARE = 8;
+    const OPTIONS = 9;
+    const L3 = 10;
+    const R3 = 11;
+    const UP_ARROW = 12;
+    const DOWN_ARROW = 13;
+    const LEFT_ARROW = 14;
+    const RIGHT_ARROW = 15;
+    const HOME = 16;
+
+    const LEFT_JOY_HOR = 0;
+    const LEFT_JOY_VER = 1;
+    const RIGHT_JOY_HOR = 2;
+    const RIGHT_JOY_VER = 3;
+
+    const LEFT = -1;
+    const RIGHT = 1;
+    const UP = -1;
+    const DOWN = 1;
+
+    // Define button to instruction map for ease of use
+    const BUTTON_TO_INSTRUCTION = new Map([
+        [R1, "right"],
+        [L1, "left"],
+        [R2, "forward"],
+        [L2, "backward"],
+        [SQUARE, "turnLeft"],
+        [CIRCLE, "turnRight"],
+        [TRIANGLE, "up"],
+        [CROSS, "down"],
+    ]);
+
+    const REFRESH_RATE = 100;
+    const SEND_TRY = 10;
+
+    let lastPressedButton = -1;
+    let isListeningToInput = false;
+    let refreshIntervalId = null;
+
+    startListeningToGamepadInput();
+
+    function startListeningToGamepadInput() {
+        // Execute processGamepadState repeatedly every "refreshRate" ms
+        if(!isListeningToInput) {
+            isListeningToInput = true;
+            refreshIntervalId = setInterval(processGamepadState, REFRESH_RATE);
+        }
+        else {
+            console.log("Already listening to inputs!");
+        }
+    }
+
+    function stopListeningToGamepadInput() {
+        if(isListeningToInput) {
+            isListeningToInput = false;
+            clearInterval(refreshIntervalId);
+        }
+    }
+
+    function processGamepadState() {
+        // Returns up to 4 gamepads.
+        const gamepads = navigator.getGamepads();
+
+        // We take the first one, for simplicity
+        const gamepad = gamepads[0];
+
+        // Escape if no gamepad was found
+        if (!gamepad) {
+            document.getElementById("gamepad_connected").innerHTML = "No gamepad found :( <br> <br> Try to press any button";
+            processNoGamepadFound();
+            return;
+        }
+
+        document.getElementById("gamepad_connected").innerHTML = "Gamepad found :)";
+
+        // Send instructions
+        const ip = document.getElementById("ip-txt").value;
+        const message = processButtons(gamepad.buttons);
+        if(!isEmptyObject(message)) {
+            const url = "http://" + ip + "/commands";
+            postData(url, message);
+        }
+    }
+
+    function processButtons(buttons) {
+        // Filter out only the buttons which are pressed
+        const pressedButtons = buttons
+            .filter(buttonPressed)
+            .map(button => buttons.indexOf(button))
+        
+        let oneButtonPressed = false;
+        let message = {};
+
+        BUTTON_TO_INSTRUCTION.forEach (function(instruction, buttonId) {
+            if(pressedButtons.includes(buttonId)) {
+                // Only keep one button pressed (arbitrarily the one with smallest index)
+                if(isEmptyObject(message) && lastPressedButton != buttonId) {
+                    message[instruction] = true;
+                    lastPressedButton = buttonId;
+                }
+                oneButtonPressed = true;
+                console.log(`Button ${buttonId} was pressed!`);
+            }
+        })
+
+        if(!oneButtonPressed && lastPressedButton != -1) {
+            message["stop"] = true;
+            lastPressedButton = -1;
+        }
+
+        return message;
+    }
+
+    function processNoGamepadFound() {
+        console.log('No gamepad found.');
+    }
+
+    function buttonPressed(b) {
+        if (typeof b === "object") {
+            return b.pressed;
+        }
+        return b > 0;
+    }
+
+    function isEmptyObject(obj) {
+        // Works best with new browsers
+        return obj != null && obj.constructor === Object && Object.keys(obj).length === 0
+    }
+
+    function postData(url, data, tries = 1) {
+        // If we already tried too much, just give up
+        if(tries > SEND_TRY)
+            return;
+        
+        console.log(`Try ${tries} to post data: ${JSON.stringify(data)}`);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.send(JSON.stringify(data));
+        xhr.onreadystatechange = function() {
+            if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                console.log("Done POST: " + JSON.stringify(data) + " " + tries);
+            } else if(this.status != 200) {
+                postData(url, data, tries + 1)
+            }
+        }
+    }
+
+</script>
+</html>
